@@ -10,6 +10,9 @@ services:
       io.balena.features.supervisor-api: 1
       io.balena.features.dbus: 1
       io.balena.features.kernel-modules: 1
+    ports:
+      - 3000:3000
+    command: python –m SimpleHTTPServer 3000
 
   debian:
     build: ./debian
@@ -19,3 +22,28 @@ services:
       io.balena.features.supervisor-api: 1
       io.balena.features.dbus: 1
       io.balena.features.kernel-modules: 1
+    ports:
+      - 4000:4000
+    command: python –m SimpleHTTPServer 4000
+
+  alpine-host:
+    build: ./alpine
+    privileged: true
+    network_mode: host
+    labels:
+      io.balena.features.balena-api: 1
+      io.balena.features.supervisor-api: 1
+      io.balena.features.dbus: 1
+      io.balena.features.kernel-modules: 1
+    command: python –m SimpleHTTPServer 5000
+
+  debian-host:
+    build: ./debian
+    privileged: true
+    network_mode: host
+    labels:
+      io.balena.features.balena-api: 1
+      io.balena.features.supervisor-api: 1
+      io.balena.features.dbus: 1
+      io.balena.features.kernel-modules: 1
+    command: python –m SimpleHTTPServer 6000
